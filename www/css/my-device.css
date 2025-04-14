@@ -1,0 +1,106 @@
+/* === Página My Device === */
+/* Estilo base para fundo escuro */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(#0c0c0c, #0f2e2a);
+  color: #fff;
+}
+
+.device-info-section {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  
+  .device-info-section .section-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #00ff99;
+    margin-bottom: 10px;
+  }
+  
+  .device-info-section .description {
+    font-size: 0.9rem;
+    color: #bbb;
+    margin-bottom: 20px;
+  }
+  
+  .device-info-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
+  .device-info-card {
+    flex: 1 1 30%;
+    min-width: 150px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .device-info-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0, 255, 153, 0.2);
+  }
+  
+  .device-info-card .info-label {
+    font-size: 0.85rem;
+    color: #aaa;
+    margin-bottom: 5px;
+  }
+  
+  .device-info-card .info-value {
+    font-size: 1.2rem;
+    color: #00ff99;
+    font-weight: bold;
+  }
+  
+  .device-action {
+    margin-top: 25px;
+    text-align: center;
+  }
+  
+  .device-action .restart-button {
+    background-color: #00ff99;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-weight: bold;
+    color: #000;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .device-action .restart-button:hover {
+    background-color: #00e68a;
+  }
+  
+  /* Link de Voltar */
+  .back-link {
+    margin-top: 30px;
+    text-align: center;
+  }
+  
+  .back-link a {
+    color: #00ff99;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .back-link a:hover {
+    color: #00e68a;
+  }
+  

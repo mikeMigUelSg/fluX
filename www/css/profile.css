@@ -1,0 +1,135 @@
+/* Estrutura base */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(#0c0c0c, #0f2e2a);
+    color: #fff;
+  }
+  
+  /* Container principal */
+  .dashboard-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  /* Cartão de cabeçalho */
+  .header-card {
+    background: linear-gradient(to right, #0f2e2a, #111);
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    margin-bottom: 20px;
+  }
+  
+  .header-card .uid-label {
+    color: #bbb;
+    font-size: 0.85rem;
+  }
+  
+  .header-card .total-label {
+    margin-top: 10px;
+    font-size: 1.1rem;
+  }
+  
+  .header-card .total-value {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #00ff99;
+  }
+  
+  .asset-button {
+    margin-top: 12px;
+    background-color: #00ff99;
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+  
+  .asset-button:hover {
+    background-color: #00e68a;
+  }
+  
+  /* Cards para os valores Task / Vault / Withdrawal */
+  .balance-cards {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .balance-card {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    border-radius: 14px;
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .balance-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 255, 153, 0.3);
+  }
+  
+  .balance-card .label {
+    font-size: 0.9rem;
+    color: #aaa;
+  }
+  
+  .balance-card .value {
+    font-size: 1.3rem;
+    color: #00ff99;
+    margin-top: 5px;
+  }
+  
+  /* Lista de funcionalidades */
+  .feature-list {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  
+  .feature-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #222;
+    transition: background 0.2s ease;
+  }
+  
+  .feature-item:last-child {
+    border-bottom: none;
+  }
+  
+  .feature-item:hover {
+    background: rgba(0, 255, 153, 0.05);
+  }
+  
+  .feature-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 12px;
+    color: #aaa;
+    background: transparent;
+    border-radius: 50%;
+  }
+  
+  .feature-label {
+    font-size: 0.95rem;
+    color: #eee;
+  }
+  
