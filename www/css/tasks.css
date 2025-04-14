@@ -1,0 +1,84 @@
+html, body {
+    height: 100%; /* Garante que o body ocupe toda a altura da tela */
+    margin: 0; /* Remove margens padrões */
+    padding: 0; /* Remove padding padrão */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(145deg, #145A32 0%, #0f2e2a 60%, #0c0c0c 100%);
+    color: white;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+  }
+  
+  .header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .header h1 {
+    font-size: 28px;
+  }
+  
+  .balance {
+    background: linear-gradient(145deg, #40a46b 0%, #0f2e2a 60%, #40a46b 100%);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .task-card {
+    background: linear-gradient(145deg, #145A32 0%, #0f2e2a 60%, #0c0c0c 100%);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .task-info {
+    flex: 1;
+  }
+  
+  .task-info h3 {
+    margin: 0 0 10px 0;
+  }
+  
+  .task-info p {
+    margin: 0;
+    font-size: 14px;
+    opacity: 0.8;
+  }
+  
+  .task-action button {
+    padding: 10px 20px;
+    background-color: #27AE60;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .task-action button:disabled {
+    background-color: grey;
+    cursor: not-allowed;
+  }
+  

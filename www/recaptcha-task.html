@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task: Verificação Humana</title>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+body {
+  background: linear-gradient(#0c0c0c, #0f2e2a);
+    color: #FFFFFF;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+    .card {
+    background: linear-gradient(145deg, #145A32 0%, #0f2e2a 60%, #0c0c0c 100%);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .card h2 {
+      margin-bottom: 20px;
+    }
+
+    .g-recaptcha {
+      margin-bottom: 15px;
+    }
+
+    button {
+      background-color: #27AE60;
+      border: none;
+      padding: 12px;
+      color: white;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #229954;
+    }
+
+    #status {
+      margin-top: 10px;
+      font-size: 14px;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2><i class="fas fa-shield-alt"></i> Verificação Humana</h2>
+    <p>Prova que és humano para ajudar a IA a distinguir bots.</p>
+
+    <!-- Substitui YOUR_SITE_KEY pela tua chave -->
+    <div class="g-recaptcha" data-sitekey="6LdKoxgrAAAAAFBmVlRvc2akHWos4gTTeG_IgBup"></div>
+
+    <button onclick="verificarCaptcha()">Submeter</button>
+    <div id="status"></div>
+  </div>
+
+  <script>
+    function verificarCaptcha() {
+      const response = grecaptcha.getResponse();
+      if (!response) {
+        document.getElementById('status').innerText = '⚠️ Por favor completa o reCAPTCHA.';
+        return;
+      }
+
+      // Simula envio para servidor e conclusão da task
+      document.getElementById('status').innerText = '✅ Verificado! Obrigado pela tua ajuda!';
+      document.querySelector('button').innerText = 'Home';
+      document.querySelector('button').onclick = () => {
+        window.location.href = 'index.html'; // ou o path da tua página inicial
+      };
+    }
+  </script>
+</body>
+</html>
