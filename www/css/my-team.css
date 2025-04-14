@@ -1,0 +1,55 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(#0c0c0c, #0f2e2a);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  h1 {
+    color: #00ff99;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    text-align: center;
+  }
+  
+  .team-list {
+    width: 100%;
+    max-width: 400px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  
+  .member {
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 1rem;
+    color: #ccc;
+  }
+  
+  .member:last-child {
+    border-bottom: none;
+  }
+  
+  .no-members {
+    text-align: center;
+    color: #999;
+    font-size: 0.95rem;
+    padding: 20px 10px;
+    font-style: italic;
+  }
+  
