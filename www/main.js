@@ -11,10 +11,8 @@ document.addEventListener("DOMContentLoaded", function () {
         window.Capacitor.Plugins.SplashScreen.hide();
       }
       
-
   });
   
-
   document.addEventListener('DOMContentLoaded', () => {
     const navItems = document.querySelectorAll('.bottom-nav .nav-item');
   

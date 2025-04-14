@@ -33,18 +33,119 @@ html, body {
 .top-bar {
   display: flex;
   justify-content: space-between;
-  padding: 12px;
+  padding: 5px;
   background-color: #111;
   font-weight: bold;
   font-size: 0.9rem;
 }
 
-.nav-icons {
+/* Task Bar */
+.top-nav {
   display: flex;
   justify-content: space-around;
   background-color: #1a1a1a;
-  padding: 10px 0;
-  font-size: 0.8rem;
+  padding: 5px 0 10px 0; /* padding bottom de 10px para espaçamento extra */
+  font-size: 0.9rem;
+  border-bottom: 2px solid #333;
+}
+
+.nav-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #bbb;
+  transition: all 0.3s ease;
+  padding: 0 5px; /* padding horizontal leve */
+  user-select: none;
+}
+
+.nav-button span {
+  margin-top: 4px;
+  font-size: 0.75rem;
+  color: #bbb;
+}
+
+/* Ícones específicos da top-nav */
+.top-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  color: #aaa;
+  transition: transform 0.3s ease;
+}
+
+.nav-button:hover .top-icon {
+  transform: scale(1.05);
+  color: #00ff99;
+}
+
+
+/* Ícones */
+.icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  color: #aaa;
+}
+
+/* Remover o efeito de hover ou destaque */
+.nav-button:hover {
+  background-color: transparent;
+  color: #bbb;
+}
+
+.nav-button .icon {
+  background: transparent;
+  transform: none;
+  box-shadow: none;
+}
+
+.nav-button span {
+  color: #bbb;
+  text-align: center;
+}
+
+
+/* Ícones */
+.icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  font-size: 20px;
+  color: #aaa;
+}
+
+.nav-item:hover .icon {
+  background: #00ff99;
+  color: black;
+  transform: translateY(-5px);
+}
+
+/* Ícones ativos */
+.nav-item.active .icon {
+  background: #00ff99;
+  color: black;
+  transform: translateY(-5px);
+  box-shadow: 0 0 10px rgba(0, 255, 153, 0.6);
+}
+
+.nav-item.active {
+  color: #00ff99;
 }
 
 .yield-card {
@@ -77,34 +178,72 @@ html, body {
 
 .cards {
   display: flex;
-  flex-direction: column;
-  gap: 15px; /* separação entre os cards */
-  padding: 15px; /* padding igual ao restante dos elementos */
+  flex-direction: row;
+  gap: 15px;
+  padding: 15px;
+  margin-bottom: px; /* Adicionado para controlar o espaço abaixo */
 }
+
 
 .card {
-  background: #262626;
-  border-radius: 10px;
-  padding: 15px;
-  width: 100%; /* ocupa toda a largura do container */
+  background: linear-gradient(145deg, rgba(30, 30, 30, 0.3), rgba(58, 58, 58, 0.1));
+  border-radius: 16px;
+  padding: 20px;
+  width: 100%;
   text-align: center;
   box-sizing: border-box;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px); /* efeito vidro */
+  -webkit-backdrop-filter: blur(10px);
 }
 
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 255, 153, 0.3);
+}
+
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 255, 153, 0.3);
+}
+
+.card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #aaa;
+  margin-bottom: 5px;
+}
+
+.card strong {
+  font-size: 1.1rem;
+  color: #00ff99;
+  display: block;
+  margin-bottom: 10px;
+}
 
 .card button {
   margin-top: 10px;
   background-color: #00ff99;
   border: none;
-  border-radius: 5px;
-  padding: 5px 10px;
+  border-radius: 8px;
+  padding: 8px 16px;
   color: #000;
   font-weight: bold;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
+.card button:hover {
+  background-color: #00e68a;
+}
+
+
 .partners {
-  margin: 15px;
+  margin: 5px 15px 15px 15px; /* top reduzido, laterais e bottom mantidos */
   font-size: 0.9rem;
 }
 
@@ -138,10 +277,10 @@ body, html {
   display: flex;
   justify-content: space-around;
   align-items: center;  /* Alinha os itens verticalmente no centro */
-  padding: 10px 0;
+  padding: 5px 0;
   background: #111;
   font-size: 0.75rem;
-  border-top: 1px solid #333;
+  border-top: 0px solid #333;
   position: fixed; /* Fixando a barra no fundo */
   bottom: 0; /* Garante que esteja no fundo */
   width: 100%; /* Garante que ocupe toda a largura */
@@ -160,7 +299,7 @@ body, html {
 }
 
 .nav-item span {
-  margin-top: 8px;
+  margin-top: 0px;
 }
 
 .icon {
@@ -172,7 +311,7 @@ body, html {
   justify-content: center;
   align-items: center;
   transition: all 0.3s ease;
-  font-size: 22px;
+  font-size: 20px;
 }
 
 .nav-item.active .icon {
