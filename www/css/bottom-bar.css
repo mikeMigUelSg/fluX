@@ -1,0 +1,53 @@
+.bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;  /* Alinha os itens verticalmente no centro */
+    padding: 5px 0;
+    background: #111;
+    font-size: 0.75rem;
+    border-top: 0px solid #333;
+    position: fixed; /* Fixando a barra no fundo */
+    bottom: 0; /* Garante que esteja no fundo */
+    width: 100%; /* Garante que ocupe toda a largura */
+    z-index: 1;
+  }
+  
+  
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 20%;
+    color: #888;
+    transition: all 0.3s ease;
+  }
+  
+  .nav-item span {
+    margin-top: 0px;
+  }
+  
+  .icon {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    font-size: 20px;
+  }
+  
+  .nav-item.active .icon {
+    background: #00ff99;
+    color: black;
+    transform: translateY(-10px);
+    box-shadow: 0 0 10px rgba(0, 255, 153, 0.6);
+  }
+  
+  .nav-item:not(.active) .icon {
+    font-size: 18px;
+    color: #aaa;
+  }
+  

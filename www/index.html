@@ -4,18 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Mobile Dashboard</title>
+
+  <!-- CSS principal -->
   <link rel="stylesheet" href="css/style.css" />
-  <script src="main.js" defer></script>
+  <!-- CSS da bottom bar -->
+  <link rel="stylesheet" href="css/bottom-bar.css" />
+  <!-- Ícones Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-  
+  <!-- JS principal da página -->
+  <script src="js/main.js" defer></script>
+  <!-- JS para carregar a bottom bar -->
+  <script src="js/bottom-bar.js" defer></script>
 </head>
+
 <body>
   <div class="app-container">
-    <header class="top-bar">
-      <div class="logo">Write smthng here </div>
-      <div class="announcement">Partner Annoument </div>
-    </header>
+
 
     <nav class="top-nav">
       <div class="nav-button">
@@ -35,9 +40,6 @@
         <span>About Us</span>
       </div>
     </nav>
-    
-    
-    
 
     <section class="yield-card">
       <div class="yield-row">
@@ -84,31 +86,8 @@
       </div>
     </section>
 
-    <footer class="bottom-nav">
-      <div class="nav-item">
-        <div class="icon"><i class="fas fa-tasks"></i></div>
-        <span>Task</span>
-      </div>
-      <div class="nav-item">
-        <div class="icon"><i class="fas fa-bolt"></i></div>
-        <span>Power</span>
-      </div>
-      <div class="nav-item active">
-        <div class="icon"><i class="fas fa-home"></i></div>
-        <span>Home</span>
-      </div>
-      <div class="nav-item">
-        <div class="icon"><i class="fas fa-robot"></i></div>
-        <span>AI</span>
-      </div>
-      <div class="nav-item">
-        <div class="icon"><i class="fas fa-user"></i></div>
-        <span>Profile</span>
-      </div>
-    </footer>
-    
-    
-    
+    <!-- Local onde a bottom bar será injetada -->
+    <div id="bottom-bar-placeholder"></div>
   </div>
-  </body>
+</body>
 </html>
