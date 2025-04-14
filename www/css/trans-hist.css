@@ -1,0 +1,95 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(#0c0c0c, #0f2e2a);
+    color: #fff;
+  }
+  
+  .container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 14px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+  }
+  
+  h1 {
+    text-align: center;
+    color: #00ff99;
+    margin-bottom: 20px;
+  }
+  
+  .transaction-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .transaction-item {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s ease;
+  }
+  
+  .transaction-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 20px rgba(0, 255, 153, 0.2);
+  }
+  
+  .transaction-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .transaction-date {
+    font-size: 0.85rem;
+    color: #bbb;
+    margin-bottom: 5px;
+  }
+  
+  .transaction-desc {
+    font-size: 1rem;
+    color: #eee;
+  }
+  
+  .transaction-amount {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #00ff99;
+    text-align: right;
+  }
+  
+
+  .back-btn {
+    display: inline-block;
+    margin-top: 0px;
+    padding: 10px 16px;
+    background-color: transparent;
+    border: 2px solid #27AE60;
+    color: #27AE60;
+    border-radius: 6px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  
+  .back-btn:hover {
+    background-color: #27AE60;
+    color: white;
+  }

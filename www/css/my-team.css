@@ -53,3 +53,21 @@ body {
     font-style: italic;
   }
   
+
+  .back-btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 16px;
+    background-color: transparent;
+    border: 2px solid #27AE60;
+    color: #27AE60;
+    border-radius: 6px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  
+  .back-btn:hover {
+    background-color: #27AE60;
+    color: white;
+  }
