@@ -123,22 +123,66 @@ html, body {
 }
 
 
+/* Garante que a bottom bar fica no fundo */
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 .bottom-nav {
-  margin-top: auto;
   display: flex;
   justify-content: space-around;
+  align-items: center;  /* Alinha os itens verticalmente no centro */
   padding: 10px 0;
-
-  /* Adiciona espaço extra baseado nos insets reais */
-  padding-bottom: constant(safe-area-inset-bottom, 10px);
-  padding-bottom: env(safe-area-inset-bottom, 10px);
-
   background: #111;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   border-top: 1px solid #333;
+  position: fixed; /* Fixando a barra no fundo */
+  bottom: 0; /* Garante que esteja no fundo */
+  width: 100%; /* Garante que ocupe toda a largura */
+  z-index: 1;
 }
 
 
-.bottom-nav .active {
-  color: #00ff99;
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 20%;
+  color: #888;
+  transition: all 0.3s ease;
+}
+
+.nav-item span {
+  margin-top: 8px;
+}
+
+.icon {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  font-size: 22px;
+}
+
+.nav-item.active .icon {
+  background: #00ff99;
+  color: black;
+  transform: translateY(-10px);
+  box-shadow: 0 0 10px rgba(0, 255, 153, 0.6);
+}
+
+.nav-item:not(.active) .icon {
+  font-size: 18px;
+  color: #aaa;
 }
