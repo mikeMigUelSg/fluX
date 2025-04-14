@@ -151,9 +151,12 @@ html, body {
 .yield-card {
   margin: 15px;
   padding: 15px;
-  background: #1f4037;
+  background: linear-gradient(to left, #1b3a36, #0c0c0c, #0f2e2a);
   border-radius: 12px;
+  color: #e0e0e0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
+
 
 .yield-row {
   display: flex;
