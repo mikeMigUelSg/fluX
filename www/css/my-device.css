@@ -87,20 +87,22 @@ body, html {
     background-color: #00e68a;
   }
   
-  /* Link de Voltar */
-  .back-link {
-    margin-top: 30px;
-    text-align: center;
-  }
+ 
   
-  .back-link a {
-    color: #00ff99;
+  .back-btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 16px;
+    background-color: transparent;
+    border: 2px solid #27AE60;
+    color: #27AE60;
+    border-radius: 6px;
     font-weight: bold;
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
   }
   
-  .back-link a:hover {
-    color: #00e68a;
+  .back-btn:hover {
+    background-color: #27AE60;
+    color: white;
   }
-  

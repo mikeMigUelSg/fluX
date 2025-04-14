@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invitation Center</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(145deg, #145A32 0%, #0f2e2a 60%, #0c0c0c 100%);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .container {
+      background-color: #145A32;
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+    }
+
+    .code-box {
+      background-color: #0f2e2a;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .code-text {
+      color: #00ff99;
+    }
+
+    .copy-btn {
+      background-color: #27AE60;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 20px;
+      width: 100%;
+    }
+
+    .copy-btn:hover {
+      background-color: #229954;
+    }
+
+    .confirmation {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: #52BE80;
+      display: none;
+    }
+    .back-btn {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 16px;
+  background-color: transparent;
+  border: 2px solid #27AE60;
+  color: #27AE60;
+  border-radius: 6px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background-color: #27AE60;
+  color: white;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><i class="fas fa-link"></i> Invitation Center</h1>
+    <div class="code-box">
+      <span class="code-text" id="inviteCode">AI-X92B</span>
+    </div>
+    <button class="copy-btn" onclick="copyCode()">Copiar Código</button>
+    <div class="confirmation" id="confirmation">✅ Código copiado para a área de transferência!</div>
+  </div>
+  <a href="index.html" class="back-btn">← Voltar à Página Principal</a>
+
+
+  <script>
+    function copyCode() {
+      const code = document.getElementById("inviteCode").innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        const confirmBox = document.getElementById("confirmation");
+        confirmBox.style.display = "block";
+        setTimeout(() => {
+          confirmBox.style.display = "none";
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
