@@ -1,8 +1,15 @@
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const mongoose = require('./config/db');
-const authRoutes = require('./routes/auth');
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import authRoutes from './routes/auth.js';
+import connectDB from './config/db.js';
+
+
+
+dotenv.config();
+
+console.log("🧪 Loaded MONGO_URI:", process.env.MONGO_URI);
+connectDB(process.env.MONGO_URI);
 
 const app = express();
 app.use(cors());

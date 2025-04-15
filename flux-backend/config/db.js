@@ -1,7 +1,12 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB ligado"))
-  .catch(err => console.error("Erro MongoDB:", err));
+const connectDB = async (uri) => {
+  try {
+    await mongoose.connect(uri);
+    console.log("MongoDB ligado");
+  } catch (err) {
+    console.error("Erro MongoDB:", err);
+  }
+};
 
-module.exports = mongoose;
+export default connectDB;
