@@ -2,6 +2,7 @@
   "appId": "com.example.app",
   "appName": "fluX",
   "webDir": "www",
+  "bundledWebRuntime": false,
   "plugins": {
     "SplashScreen": {
       "launchAutoHide": false
