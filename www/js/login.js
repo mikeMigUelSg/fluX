@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const payload = { email, password };
   
       try {
-        const response = await fetch("https://10.0.2.2:4000/api/login", {
+        const response = await fetch("https://192.168.1.100:4000/api/login", {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
