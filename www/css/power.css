@@ -1,11 +1,15 @@
-body, html {
+html, body {
   margin: 0;
   padding: 0;
-  height: 100%;
+  min-height: 100vh; /* altura mínima da janela visível */
   font-family: 'Segoe UI', sans-serif;
   background: linear-gradient(145deg, #145A32 0%, #0f2e2a 60%, #0c0c0c 100%);
+  background-attachment: fixed; /* opcional: mantém o fundo fixo ao scroll */
+  background-repeat: no-repeat;
+  background-size: cover; /* garante que o gradiente preenche todo o fundo */
   color: #fff;
 }
+
 
 .power-container {
   display: flex;
@@ -196,4 +200,12 @@ h2 {
 /* Remove o botão de guardar */
 .save-btn {
   display: none !important;
+}
+
+.add-more {
+  margin-top: 20px;
+  font-size: 0.85rem;
+  color: #aaa;
+  font-style: italic;
+  text-align: center;
 }

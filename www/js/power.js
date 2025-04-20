@@ -1,135 +1,135 @@
 import { API_BASE_URL } from './config.js';
 
 document.addEventListener("DOMContentLoaded", () => {
-  scanDevice();
+  scanDevices();
 });
 
-window.scanDevice = async function () {
-  const deviceNameEl = document.getElementById("deviceName");
-  const container = document.getElementById("gaugeContainer");
-  const label = document.getElementById("rankLabel");
-  const tip = document.getElementById("improveTip");
-  const accelInfo = document.getElementById("acceleratorInfo");
-  const activeAccEl = document.getElementById("activeAccelerators");
-  const profitEl = document.getElementById("profitEstimate");
-
-  // Loading state
-  deviceNameEl.textContent = "🔍 A carregar informações do dispositivo...";
-  container.innerHTML = "";
+window.scanDevices = async function () {
+  const container = document.querySelector(".power-container");
+  container.innerHTML = `
+    <h2><i class="fas fa-bolt"></i> Power Rank</h2>
+    <div class="section-title">📱 A carregar dispositivos...</div>
+  `;
 
   try {
-    // 1) Obtém info local
-    const { Device } = window.Capacitor.Plugins;
-    const info = await Device.getInfo();
-    const model = info.model || "Desconhecido";
-    deviceNameEl.textContent = model;
 
-    // 2) Busca rank e aceleradores ativos na API
+    // Obter UUID real do dispositivo ou usar por defeito
+    let localUUID = "default-emulator-uuid"; // valor fallback
+    try {
+      const idInfo = await window.Capacitor.Plugins.Device.getId();
+      if (idInfo && idInfo.uuid) {
+        localUUID = idInfo.uuid;
+      } else {
+        console.warn("⚠️ UUID real não disponível, a usar UUID por defeito.");
+      }
+      console.log('UUID usado:', localUUID);
+    } catch (err) {
+      console.warn('⚠️ Erro ao obter UUID, a usar UUID por defeito.', err);
+      // Continua com UUID por defeito
+    }
+
+    // 2. Obtem info do utilizador e dispositivos
     const token = localStorage.getItem("token");
     if (!token) throw new Error("Autenticação necessária");
-    const res = await fetch(
-      `${API_BASE_URL}/api/get-user`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        }
-      }
-    );
-    if (!res.ok) {
-      const errorText = await res.text(); // pode conter info útil do backend
-      throw new Error(`Erro na resposta: ${res.status} - ${errorText}`);
-    }
-    const json = await res.json();
-    const ranking = json.deviceStats.ranking || 0;
-    // espera receber { ranking: number, activeAccelerators: number }
-    const score = Math.min(Math.max(ranking, 0), 100);
-    const activeAccelerators = json.activeAccelerators || 0;
 
-    // 3) Calcula quantos aceleradores compráveis e progresso
-    const perAccelerator = 33.33;
-    const maxAccelerators = Math.floor(score / perAccelerator);
-    const progressToNext = ((score % perAccelerator)).toFixed(1);
-    console.log(
-      `Rank: ${ranking}, Aceleradores ativos: ${activeAccelerators}, ` +
-      `Máx. aceleradores: ${maxAccelerators}, Progresso: ${progressToNext}`
-    );
-    // ** Novo: destaca o indicador correto **
-    const labelSpans = document.querySelectorAll('.acc-labels span');
-    labelSpans.forEach((span, idx) => {
-      span.classList.remove('active', 'available', 'locked');
-    
-      if (idx === activeAccelerators) {
-        span.classList.add('available', 'active'); // o próximo a ativar
-      } else if (idx <= maxAccelerators) {
-        span.classList.add('available');
-      } else {
-        span.classList.add('locked');
+    const res = await fetch(`${API_BASE_URL}/api/get-user`, {
+      headers: {
+        "Authorization": `Bearer ${token}`
       }
     });
-    
 
-    // 4) Gera gauge com o score
+    if (!res.ok) throw new Error("Erro ao buscar utilizador");
+
+    const user = await res.json();
+    const devices = user.devices || [];
+
+    // 3. Limpa container
     container.innerHTML = `
-      <svg viewBox="0 0 36 36">
-        <path
-          fill="none"
-          stroke="#333"
-          stroke-width="3.8"
-          d="M18 2.0845
-             a15.9155 15.9155 0 1 1 0 31.831"
-        />
-        <path
-          fill="none"
-          stroke="#00ff99"
-          stroke-width="3.8"
-          stroke-linecap="round"
-          stroke-dasharray="${score}, 100"
-          d="M18 2.0845
-             a15.9155 15.9155 0 1 1 0 31.831"
-        />
-        <text
-          x="18"
-          y="20.35"
-          fill="#00ff99"
-          font-size="4"
-          text-anchor="middle"
-        >${score}%</text>
-      </svg>
+      <h2><i class="fas fa-bolt"></i> Power Rank</h2>
+      <div class="section-title">📱 Dispositivos ativos</div>
     `;
 
-    // 5) Label e dicas
-    const level = score > 80
-      ? "Lendário"
-      : score > 60
-        ? "Avançado"
-        : "Básico";
-    const dicas = {
-      "Básico": "Considera atualizar o teu dispositivo para melhor desempenho.",
-      "Avançado": "O teu dispositivo é bom! Mantém-no limpo e atualizado.",
-      "Lendário": "Tens uma máquina de guerra! Pronto para tudo."
-    };
-    label.textContent = `Nível ${level}`;
-    tip.textContent = dicas[level];
+    // 4. Renderiza cada dispositivo
+    devices.forEach((device) => {
+      const isCurrent = device.uuid === localUUID;
+      const score = Math.min(Math.max(device.ranking || 0, 0), 100);
+      const level = score > 80 ? "Lendário" : score > 60 ? "Avançado" : "Básico";
+      const dicas = {
+        "Básico": "Considera atualizar o teu dispositivo para melhor desempenho.",
+        "Avançado": "O teu dispositivo é bom! Mantém-no limpo e atualizado.",
+        "Lendário": "Tens uma máquina de guerra! Pronto para tudo."
+      };
 
-    // 6) Explicação dos aceleradores
-    accelInfo.textContent =
-      `Cada ${perAccelerator}% de rank dá-te direito a 1 acelerador. ` +
-      `Com ${score}% podes adquirir até ${maxAccelerators} acelerador(es) ` +
-      `e estás a ${progressToNext}% do próximo.`;
+      const perAccelerator = 33.33;
+      const maxAccelerators = Math.floor(score / perAccelerator);
+      const progressToNext = ((score % perAccelerator)).toFixed(1);
+      const activeAccelerators = device.activeAccelerators || 0;
+      const estimatedProfit = (activeAccelerators * 2).toFixed(2); 
 
-    // 7) Preenche secção de ativos e estima o profit
-    activeAccEl.textContent = `${activeAccelerators} em uso`;
-    // Exemplo de cálculo de lucro: €2 por acelerador × horas por dia (24h)
-    const lucroPorAccelPorDia = 2;
-    const estimatedProfit = (activeAccelerators * lucroPorAccelPorDia).toFixed(2);
-    profitEl.textContent =
-      `≈ €${estimatedProfit} por dia com ${activeAccelerators} acelerador(es).`;
+      const accLabels = [0, 1, 2, 3].map(i => {
+        const status =
+          i === activeAccelerators
+            ? "active available"
+            : i <= maxAccelerators
+              ? "available"
+              : "locked";
+        return `<span class="${status}">${i}</span>`;
+      }).join("");
 
+      const deviceCard = `
+        <div class="section device-section">
+          <div class="device-header">
+            <div class="device-label">${device.model || "Dispositivo desconhecido"}</div>
+            ${isCurrent ? `<div class="device-tag">✔ Atual</div>` : ""}
+          </div>
+
+          <div class="gauge-wrapper">
+            <div class="gauge">
+              <svg viewBox="0 0 36 36">
+                <path fill="none" stroke="#333" stroke-width="3.8"
+                  d="M18 2.0845 a15.9155 15.9155 0 1 1 0 31.831" />
+                <path fill="none" stroke="#00ff99" stroke-width="3.8" stroke-linecap="round"
+                  stroke-dasharray="${score}, 100"
+                  d="M18 2.0845 a15.9155 15.9155 0 1 1 0 31.831" />
+                <text x="18" y="20.35" fill="#00ff99" font-size="4" text-anchor="middle">${score}%</text>
+              </svg>
+            </div>
+            <div class="acc-labels">${accLabels}</div>
+          </div>
+
+          <hr class="divider" />
+          <div class="rank-level centered">Nível ${level}</div>
+          <div class="tip centered">${dicas[level]}</div>
+
+          <hr class="divider" />
+          <div class="tip centered">
+            Cada ${perAccelerator}% de rank dá-te direito a 1 acelerador.<br>
+            Com ${score}% podes adquirir até ${maxAccelerators} e estás a ${progressToNext}% do próximo.
+          </div>
+
+          <hr class="divider" />
+          <div class="tip centered">${activeAccelerators} acelerador(es) em uso</div>
+          <hr class="divider" />
+          <div class="tip centered">≈ €${estimatedProfit}/dia</div>
+        </div>
+      `;
+
+      container.insertAdjacentHTML("beforeend", deviceCard);
+    });
+
+    // Footer
+    container.insertAdjacentHTML("beforeend", `
+      <div class="add-more">
+        Podes adicionar mais dispositivos ao teu perfil. Para isso faz login de um novo dispositivo.
+      </div>
+      <div id="bottom-bar-placeholder"></div>
+    `);
 
   } catch (e) {
-    container.innerHTML = "❌ Erro ao obter dados.";
-    deviceNameEl.textContent = "Erro";
-    console.error(e);
+    console.error("Erro ao carregar dispositivos:", e);
+    document.querySelector(".power-container").innerHTML = `
+      <h2><i class="fas fa-bolt"></i> Power Rank</h2>
+      <p style="color:red;">❌ Erro ao carregar os dispositivos.</p>
+    `;
   }
 };
