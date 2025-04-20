@@ -6,9 +6,7 @@
   <title>Dashboard</title>
   <link rel="stylesheet" href="css/profile.css" />
   <link rel="stylesheet" href="css/bottom-bar.css" />
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <script src="js/bottom-bar.js" defer></script>
 </head>
 <body>
   <div class="dashboard-wrapper">
@@ -17,23 +15,25 @@
     <div class="header-card">
       <div class="uid-label">UID: <span style="color: #00ff99;">38367271</span></div>
       <div class="total-label">Meu Total de Ativos (USDT)</div>
-      <div class="total-value">77.344 USDT</div>
+      <div class="total-value">--- USDT</div>
       <button class="asset-button">Centro de Ativos</button>
     </div>
+    <!-- Título sofisticado para os ganhos -->
+  <div class="total-earnings-title">Total Ganho</div>
 
     <!-- Cards de Saldos -->
     <div class="balance-cards">
       <div class="balance-card">
-        <div class="label">Tarefa</div>
-        <div class="value">₮ 5.000</div>
-      </div>
-      <div class="balance-card">
-        <div class="label">Cofre</div>
+        <div class="label">Tarefas</div>
         <div class="value">₮ 0.00</div>
       </div>
       <div class="balance-card">
-        <div class="label">Levantamento</div>
-        <div class="value">₮ 72.344</div>
+        <div class="label">Processamento</div>
+        <div class="value">₮ 0.00</div>
+      </div>
+      <div class="balance-card">
+        <div class="label">Equipa</div>
+        <div class="value">₮ 0.00</div>
       </div>
     </div>
 
@@ -67,5 +67,7 @@
     
   </div>
   <div id="bottom-bar-placeholder"></div>
+  <script type="module" src="js/profile.js"></script>
+  <script type="module" src="js/bottom-bar.js"></script>  
 </body>
 </html>

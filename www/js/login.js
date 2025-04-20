@@ -1,3 +1,5 @@
+import { API_BASE_URL } from './config.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('.login-form');
   
@@ -10,7 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const payload = { email, password };
   
       try {
-        const response = await fetch("https://192.168.1.100:4000/api/login", {
+        
+        const response = await fetch(`${API_BASE_URL}/api/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
@@ -20,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
         if (response.ok) {
           localStorage.setItem('token', data.token);
-          alert("✅ Login bem-sucedido!");
+          alert("Login bem-sucedido!");
           window.location.href = "index.html";
         } else {
           alert(`❌ Erro: ${data.error || 'Credenciais inválidas.'}`);

@@ -1,3 +1,5 @@
+import { API_BASE_URL } from './config.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('.register-form');
   
@@ -12,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const payload = { name, email, password, inviteCode };
   
       try {
-        const response = await fetch('http://localhost:4000/api/register', {
+        const response = await fetch(`${API_BASE_URL}/api/register`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)

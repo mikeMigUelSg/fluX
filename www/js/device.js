@@ -1,3 +1,5 @@
+import { API_BASE_URL } from './config.js';
+
 document.addEventListener("DOMContentLoaded", () => {
     const scanBtn = document.getElementById("scanBtn");
     const loading = document.getElementById("loading");
@@ -73,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
           const token = localStorage.getItem("token");
           if (!token) throw new Error("Token não encontrado. Autentica-te primeiro.");
       
-          const response = await fetch("https://localhost:4000/api/device-stats", {
+          const response = await fetch(`${API_BASE_URL}/api/device-stats`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

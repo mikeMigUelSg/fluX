@@ -11,8 +11,20 @@ const userSchema = new mongoose.Schema({
   earnings: {
     total: { type: Number, default: 0 },              // total geral
     fromTasks: { type: Number, default: 0 },           // tarefas AI (texto/imagem)
-    fromCompute: { type: Number, default: 0 }          // aluguer de CPU/GPU
+    fromCompute: { type: Number, default: 0 },
+    fromTeam: { type: Number, default: 0 }      // aluguer de CPU/GPU
   },
+
+  // Saldo atual disponível (pode ser usado para levantamentos ou compras)
+  balance: { type: Number, default: 0 },
+
+  // Histórico de transações
+  transactions: [{
+    type: { type: String, enum: ['ganho', 'gasto', 'levantamento', 'compra'], required: true },
+    amount: { type: Number, required: true },
+    description: { type: String, default: '' },
+    date: { type: Date, default: Date.now }
+  }],
 
   // Histórico de compras de aceleradores
   accelerators: [{
@@ -31,11 +43,11 @@ const userSchema = new mongoose.Schema({
     osVersion: String,
     ranking: Number,
     available: { type: Boolean, default: false }
-  }
-  ,
+  },
 
   createdAt: { type: Date, default: Date.now }
 });
+
 
 
 

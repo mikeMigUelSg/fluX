@@ -1,0 +1,52 @@
+✅ RESUMO DO QUE FOI FEITO
+
+🔧 1. Geração de certificado HTTPS local com `mkcert`
+- Instalaste o `mkcert` com o Homebrew.
+- Criaste um certificado para o IP da tua máquina local (ex: `192.168.1.100`):
+  mkcert 192.168.1.100
+- Isto gerou dois ficheiros:
+  - 192.168.1.100.pem → o certificado
+  - 192.168.1.100-key.pem → a chave privada
+
+🖥️ 2. Configuração do servidor Express com HTTPS
+- Usaste os ficheiros `.pem` para arrancar o servidor com HTTPS:
+  https.createServer(httpsOptions, app).listen(PORT, '0.0.0.0')
+- Isto permite que o servidor escute conexões externas no IP `192.168.1.100`, porta `4000`.
+
+🌐 3. Configuração do Android para confiar no certificado `mkcert`
+
+📁 Adicionaste o certificado raiz (`rootCA.pem`) ao Android:
+cp "/Users/miguelferreira/Library/Application Support/mkcert/rootCA.pem" android/app/src/main/res/raw/mkcert_rootca.pem
+
+📄 Criaste o ficheiro `network_security_config.xml`:
+Caminho: android/app/src/main/res/xml/network_security_config.xml
+<network-security-config>
+  <domain-config cleartextTrafficPermitted="false">
+    <domain includeSubdomains="true">192.168.1.100</domain>
+    <trust-anchors>
+      <certificates src="@raw/mkcert_rootca" />
+    </trust-anchors>
+  </domain-config>
+</network-security-config>
+
+🧩 Ligaste este ficheiro ao `AndroidManifest.xml`:
+<application
+  android:networkSecurityConfig="@xml/network_security_config"
+  ...
+>
+
+🌍 4. Atualizaste o frontend da app Capacitor
+- Substituíste `localhost` por `https://192.168.1.100:4000` no `fetch()`:
+fetch("https://192.168.1.100:4000/api/login", ...)
+
+📱 5. Sincronizaste e recompilaste a app
+- Correste:
+  npx cap sync android
+  npx cap open android
+- E recompilaste pelo Android Studio para aplicar as alterações.
+
+✅ Resultado esperado:
+Agora a tua app Capacitor no Android:
+- Consegue comunicar com o teu servidor HTTPS local
+- Confia no certificado do `mkcert`
+- Não dá mais erro `SSL handshake failed` nem `Failed to fetch`ßßßß

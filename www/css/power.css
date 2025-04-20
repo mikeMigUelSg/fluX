@@ -1,0 +1,183 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(145deg, #145A32 0%, #0f2e2a 60%, #0c0c0c 100%);
+  color: #fff;
+}
+
+.power-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 20px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.8rem;
+  color: #00ff99;
+  margin-bottom: 20px;
+}
+
+/* Container genérico para seções */
+.section {
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 16px;
+  margin: 12px 0;
+  width: 100%;
+  max-width: 380px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+
+.device-label {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #00ff99;
+  margin-bottom: 10px;
+}
+
+.gauge-wrapper {
+  position: relative;
+  background: rgba(255,255,255,0.03);
+  border-radius: 16px;
+  padding: 20px;
+  margin: 10px 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.gauge {
+  width: 160px;
+  height: 160px;
+  margin: 0 auto;
+}
+
+.acc-labels {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 8px;
+  font-size: 0.8rem;
+  color: #bbb;
+  margin-top: 8px;
+}
+
+.rank-level {
+  font-size: 1.2rem;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #ccc;
+}
+
+.tip {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #bbb;
+  font-style: italic;
+  max-width: 300px;
+}
+.tip.centered {
+  /* centra o texto dentro do bloco */
+  text-align: center;
+  /* faz o bloco de 300px ficar alinhado ao centro do pai */
+  margin: 10px auto;
+}
+
+
+
+.save-btn {
+  margin-top: 16px;
+  background-color: #00ff99;
+  color: black;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.save-btn:hover {
+  background-color: #229954;
+}
+
+.hidden {
+  display: none;
+}
+
+
+/* Destaque do indicador ativo */
+.acc-labels span.active {
+  color: #00ff99;
+  font-weight: bold;
+  font-size: 1rem;
+  position: relative;
+  transition: transform 0.2s;
+}
+.acc-labels span.active::after {
+  content: '⚡';
+  position: absolute;
+  top: -1.4em;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: pulse 1s infinite;
+}
+
+/* Pequena animação de “pulse” */
+@keyframes pulse {
+  0%   { transform: translateX(-50%) scale(1); }
+  50%  { transform: translateX(-50%) scale(1.2); }
+  100% { transform: translateX(-50%) scale(1); }
+}
+
+
+/* Novo título acima do card */
+.section-title {
+  font-size: 1.1rem;
+  color: #ccc;
+  margin-bottom: 8px;
+}
+
+/* Tag “✔ Atual” */
+.device-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.device-tag {
+  background-color: #00ff99;
+  color: #0c0c0c;
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+/* Linha divisória fina */
+.divider {
+  border: none;
+  height: 1px;
+  background-color: #333;
+  margin: 12px 0;
+}
+
+/* Centro o nível */
+.centered {
+  text-align: center;
+}
+
+/* Informação para adicionar mais dispositivos */
+.add-more {
+  margin-top: 20px;
+  font-size: 0.85rem;
+  color: #aaa;
+  font-style: italic;
+  text-align: center;
+}
+
+/* Remove o botão de guardar */
+.save-btn {
+  display: none !important;
+}
