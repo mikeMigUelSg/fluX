@@ -14,8 +14,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
   <!-- Scripts -->
-  <script src="js/accelerators.js" defer></script>
-  <script src="js/bottom-bar.js" defer></script>
 </head>
 <body>
   <div class="app-container">
@@ -23,73 +21,14 @@
     <main class="scrollable-content">
       <section class="accelerator-cards">
         
-        <!-- CARD 1 -->
-        <div class="accelerator-card">
-          <h3>Primary Text Task <span class="level">LV.0–LV.6</span></h3>
-          <div class="text-image-row">
-            <div class="text-content">
-              <p><strong>Prices:</strong> 50.00 USDT</p>
-              <p><strong>Deadlines:</strong> 60 Days</p>
-              <p><strong>Daily training hours:</strong> 2 H</p>
-              <p><strong>Daily earnings:</strong> 1.60 USDT</p>
-              <p><strong>Total earnings:</strong> 96.00 USDT</p>
-              <p><strong>Total yield:</strong> 92%</p>
-              <p><strong>Maximum purchase:</strong> 1</p>
-            </div>
-            <div class="image-content">
-              <img src="img/accel1.png" alt="Accelerator Image" />
-            </div>
-          </div>
-          <button class="buy-btn">Buy Now</button>
-        </div>
-
-        <!-- CARD 2 -->
-        <div class="accelerator-card">
-          <h3>Accelerator I <span class="level">LV.0–LV.6</span></h3>
-          <div class="text-image-row">
-            <div class="text-content">
-              <p><strong>Prices:</strong> 100.00 USDT</p>
-              <p><strong>Deadlines:</strong> 60 Days</p>
-              <p><strong>Daily training hours:</strong> 2 H</p>
-              <p><strong>Daily earnings:</strong> 3.40 USDT</p>
-              <p><strong>Total earnings:</strong> 204.00 USDT</p>
-              <p><strong>Total yield:</strong> 104%</p>
-              <p><strong>Maximum purchase:</strong> 3</p>
-            </div>
-            <div class="image-content">
-              <img src="img/accel2.png" alt="Rocket" />
-            </div>
-          </div>
-          <button class="buy-btn">Buy Now</button>
-        </div>
-
-        <!-- CARD 3 -->
-        <div class="accelerator-card">
-          <h3>Accelerator II <span class="level">LV.6–LV.10</span></h3>
-          <div class="text-image-row">
-            <div class="text-content">
-              <p><strong>Prices:</strong> 150.00 USDT</p>
-              <p><strong>Deadlines:</strong> 60 Days</p>
-              <p><strong>Daily training hours:</strong> 2 H</p>
-              <p><strong>Daily earnings:</strong> 5.10 USDT</p>
-              <p><strong>Total earnings:</strong> 306.00 USDT</p>
-              <p><strong>Total yield:</strong> 104%</p>
-              <p><strong>Maximum purchase:</strong> 3</p>
-            </div>
-            <div class="image-content">
-              <img src="img/accel1.png" alt="Accelerator II Image" />
-            </div>
-          </div>
-          <button class="buy-btn">Buy Now</button>
-        </div>
-
       </section>
     </main>
     
 
     <!-- Local onde a bottom bar será injetada -->
     <div id="bottom-bar-placeholder"></div>
-
+    <script type="module" src="js/bottom-bar.js"></script>  
+    <script type="module" src="js/accelerators.js"></script>
   </div>
 </body>
 </html>

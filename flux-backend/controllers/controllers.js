@@ -1,6 +1,8 @@
 import User from '../models/user.js';
+import Accelerator from '../models/accel.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+
 
 // REGISTO
 export const register = async (req, res) => {
@@ -124,6 +126,58 @@ export const getUser = async (req, res) => {
     });
   } catch (err) {
     console.error("Erro ao obter utilizador:", err);
-    res.status(500).json({ error: "Erro interno do servidor" });
+    res.status(500).json({ error: "Erro interno do servidor" });  
   }
 };
+
+export const addAcceleratorToDevice = async (req, res) => {
+  const { userId, uuid } = req.params;
+  const { acceleratorId } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ error: 'Utilizador não encontrado' });
+
+    const device = user.devices.find(d => d.uuid === uuid);
+    if (!device) return res.status(404).json({ error: 'Dispositivo não encontrado' });
+
+    // Procurar acelerador no JSON
+    const accelerator = acceleratorsList.find(acc => acc.id === acceleratorId);
+    if (!accelerator) return res.status(400).json({ error: 'Acelerador inválido' });
+
+
+    // Adiciona o acelerador ao dispositivo
+    device.accelerators.push({
+      id: accelerator.id,
+      purchasedAt: new Date()
+    });
+
+    // Atualiza saldo e transações
+    user.balance -= accelerator.price;
+    user.transactions.push({
+      type: 'compra',
+      amount: accelerator.price,
+      description: `Compra de "${accelerator.name}" no dispositivo ${uuid}`,
+      date: new Date()
+    });
+
+    await user.save();
+
+    res.status(200).json({ message: 'Acelerador comprado com sucesso', device });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Erro no servidor' });
+  }
+};
+
+export const getAcceleratorInfo = async (req, res) => {
+  try {
+    const accelerators = await Accelerator.find();
+    res.status(200).json(accelerators);
+    console.log('Aceleradores encontrados:', accelerators);
+  } catch (error) {
+    console.error('Erro ao buscar aceleradores:', error);
+    res.status(500).json({ message: 'Erro ao buscar aceleradores' });
+  }
+};
+  

@@ -26,11 +26,6 @@ const userSchema = new mongoose.Schema({
   }],
 
   // Histórico de compras de aceleradores
-  accelerators: [{
-    name: String,
-    price: Number,
-    purchasedAt: { type: Date, default: Date.now }
-  }],
 
   // Lista de dispositivos identificados por UUID
   devices: [{
@@ -43,7 +38,15 @@ const userSchema = new mongoose.Schema({
     osVersion: String,
     ranking: Number,
     available: { type: Boolean, default: false },
-    registeredAt: { type: Date, default: Date.now }
+    registeredAt: { type: Date, default: Date.now },
+    accelerators: {
+      type: [{
+        id: String,
+        purchasedAt: { type: Date, default: Date.now }
+      }],
+      default: []
+    }
+  
   }],
 
   createdAt: { type: Date, default: Date.now }
