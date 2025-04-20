@@ -50,16 +50,24 @@ window.scanDevice = async function () {
     const perAccelerator = 33.33;
     const maxAccelerators = Math.floor(score / perAccelerator);
     const progressToNext = ((score % perAccelerator)).toFixed(1);
-
+    console.log(
+      `Rank: ${ranking}, Aceleradores ativos: ${activeAccelerators}, ` +
+      `Máx. aceleradores: ${maxAccelerators}, Progresso: ${progressToNext}`
+    );
     // ** Novo: destaca o indicador correto **
     const labelSpans = document.querySelectorAll('.acc-labels span');
     labelSpans.forEach((span, idx) => {
-      if (idx === maxAccelerators) {
-        span.classList.add('active');
+      span.classList.remove('active', 'available', 'locked');
+    
+      if (idx === activeAccelerators) {
+        span.classList.add('available', 'active'); // o próximo a ativar
+      } else if (idx <= maxAccelerators) {
+        span.classList.add('available');
       } else {
-        span.classList.remove('active');
+        span.classList.add('locked');
       }
     });
+    
 
     // 4) Gera gauge com o score
     container.innerHTML = `

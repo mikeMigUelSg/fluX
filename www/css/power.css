@@ -106,13 +106,20 @@ h2 {
 }
 
 
-/* Destaque do indicador ativo */
-.acc-labels span.active {
+.acc-labels span {
+  position: relative; /* NECESSÁRIO para o ⚡ aparecer corretamente */
+  transition: color 0.3s, opacity 0.3s;
+}
+/* Disponíveis */
+.acc-labels span.available {
   color: #00ff99;
   font-weight: bold;
-  font-size: 1rem;
+}
+
+/* Em progresso (o atual com ⚡) */
+.acc-labels span.active {
   position: relative;
-  transition: transform 0.2s;
+  font-size: 1rem;
 }
 .acc-labels span.active::after {
   content: '⚡';
@@ -123,12 +130,21 @@ h2 {
   animation: pulse 1s infinite;
 }
 
+/* Bloqueados */
+.acc-labels span.locked {
+  color: #555;       /* ou: rgba(255,255,255,0.2); */
+  opacity: 0.4;
+}
+
+
 /* Pequena animação de “pulse” */
 @keyframes pulse {
   0%   { transform: translateX(-50%) scale(1); }
   50%  { transform: translateX(-50%) scale(1.2); }
   100% { transform: translateX(-50%) scale(1); }
 }
+
+@k
 
 
 /* Novo título acima do card */
@@ -159,7 +175,7 @@ h2 {
 .divider {
   border: none;
   height: 1px;
-  background-color: #333;
+  background-color: rgba(170, 170, 170, 0.3); /* 20% opacidade */
   margin: 12px 0;
 }
 
