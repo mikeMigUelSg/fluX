@@ -19,6 +19,7 @@
     "@capacitor/device": "^7.0.1",
     "@capacitor/splash-screen": "latest",
     "bcrypt": "^5.1.1",
+    "cordova-plugin-macaddress": "^0.0.3",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",

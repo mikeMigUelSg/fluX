@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
-
 body, html {
   margin: 0;
   padding: 0;
@@ -8,13 +7,14 @@ body, html {
   font-family: 'Segoe UI', sans-serif;
   background: linear-gradient(#0c0c0c, #0f2e2a);
   color: #fff;
+  overflow-y: scroll;
 }
 
 .dashboard-wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  padding: 20px;
+  padding: 20px; /* <- AQUI está o teu espaço dos lados */
   box-sizing: border-box;
 }
 
@@ -24,6 +24,28 @@ body, html {
   border-radius: 16px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
   margin-bottom: 20px;
+  text-align: center;
+}
+
+.device-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 30px;
+  width: 100%;
+}
+
+.device-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 20px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  /* NÃO PRECISAS DE MARGIN AQUI */
 }
 
 .uid-label {
@@ -31,14 +53,70 @@ body, html {
   font-size: 0.85rem;
 }
 
-.scan-section {
+.device-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 20px;
+  width: 100%;
+  padding: 0; /* sem padding lateral */
+  box-sizing: border-box;
+}
+
+
+.device-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  width: 100%;        /* ocupa toda a área interna do wrapper */
+  max-width: 480px;   /* opcional, para não passar desse tamanho */
+  margin: 0 auto;     /* centra em viewports maiores */
+  padding: 20px;
+  box-sizing: border-box;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.device-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+
+.device-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+}
+
+.device-header h3 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.device-header small {
+  font-size: 0.75rem;
+  color: #ccc;
+}
+
+.device-stats {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.device-stats p {
+  margin: 6px 0;
+  color: #ddd;
+}
+
+.device-stats strong {
+  color: #00ff99;
 }
 
 .asset-button {
-  margin-top: 12px;
+  margin-top: 16px;
   background-color: #00ff99;
   color: #000;
   border: none;
@@ -48,6 +126,7 @@ body, html {
   font-size: 1rem;
   cursor: pointer;
   transition: 0.3s ease;
+  align-self: center;
 }
 
 .asset-button:hover {
@@ -69,47 +148,6 @@ body, html {
   margin-bottom: 10px;
 }
 
-.feature-list {
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 12px;
-  overflow: hidden;
-  width: 100%;
-  max-width: 480px;
-  margin: 20px auto;
-}
-
-.feature-item {
-  display: flex;
-  align-items: center;
-  padding: 15px;
-  border-bottom: 1px solid #222;
-  transition: background 0.2s ease;
-}
-
-.feature-item:last-child {
-  border-bottom: none;
-}
-
-.feature-item:hover {
-  background: rgba(0, 255, 153, 0.05);
-}
-
-.feature-icon {
-  width: 32px;
-  height: 32px;
-  font-size: 18px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 12px;
-  color: #aaa;
-}
-
-.feature-label {
-  font-size: 1rem;
-  color: #eee;
-}
-
 .hidden {
   display: none;
 }
@@ -118,5 +156,3 @@ body, html {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
-  

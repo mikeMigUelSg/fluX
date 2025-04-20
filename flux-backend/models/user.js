@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 
-
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, unique: true, required: true },
@@ -9,13 +8,13 @@ const userSchema = new mongoose.Schema({
 
   // Ganhos acumulados
   earnings: {
-    total: { type: Number, default: 0 },              // total geral
-    fromTasks: { type: Number, default: 0 },           // tarefas AI (texto/imagem)
+    total: { type: Number, default: 0 },
+    fromTasks: { type: Number, default: 0 },
     fromCompute: { type: Number, default: 0 },
-    fromTeam: { type: Number, default: 0 }      // aluguer de CPU/GPU
+    fromTeam: { type: Number, default: 0 }
   },
 
-  // Saldo atual disponível (pode ser usado para levantamentos ou compras)
+  // Saldo atual disponível
   balance: { type: Number, default: 0 },
 
   // Histórico de transações
@@ -28,27 +27,26 @@ const userSchema = new mongoose.Schema({
 
   // Histórico de compras de aceleradores
   accelerators: [{
-    name: String,                   // Ex: "Tensor Booster", "Edge AI Core"
+    name: String,
     price: Number,
     purchasedAt: { type: Date, default: Date.now }
   }],
 
-  // Estatísticas do dispositivo (opcional)
-  deviceStats: {
-    model: String , 
+  // Lista de dispositivos identificados por UUID
+  devices: [{
+    uuid: { type: String, required: true },
+    model: String,
     cpuCores: Number,
     ramGB: Number,
     gpuModel: String,
     os: String,
     osVersion: String,
     ranking: Number,
-    available: { type: Boolean, default: false }
-  },
+    available: { type: Boolean, default: false },
+    registeredAt: { type: Date, default: Date.now }
+  }],
 
   createdAt: { type: Date, default: Date.now }
 });
-
-
-
 
 export default mongoose.model('User', userSchema);
