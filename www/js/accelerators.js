@@ -35,6 +35,20 @@ document.addEventListener('DOMContentLoaded', async () => {
       container.appendChild(card);
       card.querySelector('.buy-btn').addEventListener('click', async () => {
         try {
+              // Obter UUID real do dispositivo ou usar por defeito
+          let localUUID = "default-emulator-uuid"; // valor fallback
+          try {
+            const idInfo = await window.Capacitor.Plugins.Device.getId();
+            if (idInfo && idInfo.uuid) {
+              localUUID = idInfo.uuid;
+            } else {
+              console.warn("⚠️ UUID real não disponível, a usar UUID por defeito.");
+            }
+            console.log('UUID usado:', localUUID);
+          } catch (err) {
+            console.warn('⚠️ Erro ao obter UUID, a usar UUID por defeito.', err);
+          }
+
           const token = localStorage.getItem("token");
           const res = await fetch(`${API_BASE_URL}/api/get-payment`, {
             method: "POST",
@@ -43,8 +57,8 @@ document.addEventListener('DOMContentLoaded', async () => {
               "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify({
-              idAcelerador: acc._id,       
-              valorUSD: acc.price         
+              idAcelerador: acc._id,  
+              uuid: localUUID     
             })
           });
           

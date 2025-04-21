@@ -143,17 +143,17 @@ export const getAcceleratorInfo = async (req, res) => {
 };
   
 export const getPayment = async (req, res) => {
+  const userId = req.user.id;
   const user = await User.findById(userId);
   if (!user) return res.status(404).json({ error: "Utilizador não encontrado" });
 
   const { idAcelerador , uuid } = req.body;
-  const orderId = `acc-${idAcelerador}-${user}-${uuid}-${Date.now()}`;
+  const orderId = `acc-${idAcelerador}-${user._id}-${uuid}-${Date.now()}`;
   const API_KEY = "XSPHKKQ-7BXMNZH-PM5X9M2-5C47QHC";
 
   const payload = {
-    price_amount: valorUSD,
+    price_amount: Number(1),
     price_currency: "usd",
-    pay_currency: "usdttrc20",
     order_id: orderId,
     order_description: "Compra de Acelerador",
     ipn_callback_url: "https://f298-149-90-32-71.ngrok-free.app/api/webhook",
@@ -176,14 +176,52 @@ export const getPayment = async (req, res) => {
 
 }
 
-export const webHookPayment = async (req, res) =>{
+export const webHookPayment = async (req, res) => {
   const dados = req.body;
   console.log("🔔 Webhook recebido:", dados);
 
   if (dados.payment_status === "finished") {
-    console.log("✅ Pagamento confirmado para:", dados.order_id);
-    // Aqui podes ativar o acelerador no MongoDB, etc.
+    try {
+      const { order_id, price_amount } = dados;
+
+      // Exemplo: acc-6432e6b-user-87de73-dev-6c8e11
+      const partes = order_id.split("-");
+      const accId = partes[1];
+      const userId = partes[3];
+      const uuid = partes[5];
+
+      console.log("✅ Pagamento confirmado:");
+      console.log("📦 Acelerador:", accId);
+      console.log("👤 User:", userId);
+      console.log("📱 UUID:", uuid);
+
+      // Verifica se user existe
+      const user = await User.findById(userId);
+      if (!user) return res.status(404).json({ error: "Utilizador não encontrado" });
+
+      // Encontra o dispositivo correto
+      const device = user.devices.find(d => d.uuid === uuid);
+      if (!device) return res.status(404).json({ error: "Dispositivo não encontrado" });
+
+      // Cria o novo acelerador comprado
+      const novoAcelerador = {
+        accId,
+        price: parseFloat(price_amount),
+        purchaseDate: new Date()
+      };
+
+      // Adiciona ao array de aceleradores no dispositivo
+      device.accelerators = device.accelerators || [];
+      device.accelerators.push(novoAcelerador);
+
+      await user.save();
+
+      console.log("🟢 Acelerador adicionado ao utilizador com sucesso.");
+    } catch (err) {
+      console.error("❌ Erro ao processar o webhook:", err);
+      return res.sendStatus(500);
+    }
   }
 
-  res.sendStatus(200); // Sempre responde OK
-}
+  res.sendStatus(200); // responde sempre OK
+};
