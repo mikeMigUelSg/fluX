@@ -45,11 +45,11 @@ const userSchema = new mongoose.Schema({
         purchasedAt: { type: Date, default: Date.now }
       }],
       default: []
-    }
-  
+    },
+    createdAt: { type: Date, default: Date.now }
   }],
 
-  createdAt: { type: Date, default: Date.now }
+  
 });
 
 export default mongoose.model('User', userSchema);

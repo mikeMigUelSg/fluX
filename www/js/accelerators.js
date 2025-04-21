@@ -33,6 +33,31 @@ document.addEventListener('DOMContentLoaded', async () => {
       `;
 
       container.appendChild(card);
+      card.querySelector('.buy-btn').addEventListener('click', async () => {
+        try {
+          const token = localStorage.getItem("token");
+          const res = await fetch(`${API_BASE_URL}/api/get-payment`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({
+              idAcelerador: acc._id,       
+              valorUSD: acc.price         
+            })
+          });
+          
+          
+          const { invoice_url } = await res.json();
+          console.log("URL da fatura:", invoice_url);
+          window.location.href = invoice_url; 
+        } catch (e) {
+          alert("Erro ao criar fatura");
+          console.error(e);
+        }
+      });
+
     });
   } catch (error) {
     console.error('Erro ao carregar aceleradores:', error);

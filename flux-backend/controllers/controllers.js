@@ -130,45 +130,6 @@ export const getUser = async (req, res) => {
   }
 };
 
-export const addAcceleratorToDevice = async (req, res) => {
-  const { userId, uuid } = req.params;
-  const { acceleratorId } = req.body;
-
-  try {
-    const user = await User.findById(userId);
-    if (!user) return res.status(404).json({ error: 'Utilizador não encontrado' });
-
-    const device = user.devices.find(d => d.uuid === uuid);
-    if (!device) return res.status(404).json({ error: 'Dispositivo não encontrado' });
-
-    // Procurar acelerador no JSON
-    const accelerator = acceleratorsList.find(acc => acc.id === acceleratorId);
-    if (!accelerator) return res.status(400).json({ error: 'Acelerador inválido' });
-
-
-    // Adiciona o acelerador ao dispositivo
-    device.accelerators.push({
-      id: accelerator.id,
-      purchasedAt: new Date()
-    });
-
-    // Atualiza saldo e transações
-    user.balance -= accelerator.price;
-    user.transactions.push({
-      type: 'compra',
-      amount: accelerator.price,
-      description: `Compra de "${accelerator.name}" no dispositivo ${uuid}`,
-      date: new Date()
-    });
-
-    await user.save();
-
-    res.status(200).json({ message: 'Acelerador comprado com sucesso', device });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Erro no servidor' });
-  }
-};
 
 export const getAcceleratorInfo = async (req, res) => {
   try {
@@ -181,3 +142,48 @@ export const getAcceleratorInfo = async (req, res) => {
   }
 };
   
+export const getPayment = async (req, res) => {
+  const user = await User.findById(userId);
+  if (!user) return res.status(404).json({ error: "Utilizador não encontrado" });
+
+  const { idAcelerador , uuid } = req.body;
+  const orderId = `acc-${idAcelerador}-${user}-${uuid}-${Date.now()}`;
+  const API_KEY = "XSPHKKQ-7BXMNZH-PM5X9M2-5C47QHC";
+
+  const payload = {
+    price_amount: valorUSD,
+    price_currency: "usd",
+    pay_currency: "usdttrc20",
+    order_id: orderId,
+    order_description: "Compra de Acelerador",
+    ipn_callback_url: "https://f298-149-90-32-71.ngrok-free.app/api/webhook",
+    success_url: "capacitor://localhost/accelerators.html",
+    cancel_url: "capacitor://localhost/accelerators.html"
+  };
+
+  const response = await fetch("https://api.nowpayments.io/v1/invoice", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": API_KEY
+    },
+    body: JSON.stringify(payload)
+  });
+
+  const data = await response.json();
+  console.log("Resposta da API de pagamento:", data);
+  res.json({ invoice_url: data.invoice_url });
+
+}
+
+export const webHookPayment = async (req, res) =>{
+  const dados = req.body;
+  console.log("🔔 Webhook recebido:", dados);
+
+  if (dados.payment_status === "finished") {
+    console.log("✅ Pagamento confirmado para:", dados.order_id);
+    // Aqui podes ativar o acelerador no MongoDB, etc.
+  }
+
+  res.sendStatus(200); // Sempre responde OK
+}
