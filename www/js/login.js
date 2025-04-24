@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
   
         if (response.ok) {
           localStorage.setItem('token', data.token);
-          alert("Login bem-sucedido!");
           window.location.href = "index.html";
         } else {
           alert(`❌ Erro: ${data.error || 'Credenciais inválidas.'}`);

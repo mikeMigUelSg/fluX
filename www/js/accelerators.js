@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         try {
               // Obter UUID real do dispositivo ou usar por defeito
           let localUUID = "default-emulator-uuid"; // valor fallback
+
           try {
             const idInfo = await window.Capacitor.Plugins.Device.getId();
             if (idInfo && idInfo.uuid) {
@@ -50,6 +51,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           }
 
           const token = localStorage.getItem("token");
+          
           const res = await fetch(`${API_BASE_URL}/api/get-payment`, {
             method: "POST",
             headers: {
@@ -57,7 +59,7 @@ document.addEventListener('DOMContentLoaded', async () => {
               "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify({
-              idAcelerador: acc._id,  
+              idAcelerador: acc.id,  
               uuid: localUUID     
             })
           });

@@ -37,8 +37,7 @@ export const login = async (req, res) => {
 
     res.status(200).json({
       message: "Login bem-sucedido",
-      token,
-      user: { name: user.name, email: user.email }
+      token: token
     });
   } catch (err) {
     console.error("Erro no login:", err);
@@ -143,23 +142,35 @@ export const getAcceleratorInfo = async (req, res) => {
 };
   
 export const getPayment = async (req, res) => {
+
   const userId = req.user.id;
+
   const user = await User.findById(userId);
+
   if (!user) return res.status(404).json({ error: "Utilizador não encontrado" });
 
   const { idAcelerador , uuid } = req.body;
+
+  console.log("Dados recebidos para pagamento:", req.body);
+
+
   const orderId = `acc-${idAcelerador}-${user._id}-${uuid}-${Date.now()}`;
-  const API_KEY = "XSPHKKQ-7BXMNZH-PM5X9M2-5C47QHC";
+
+  const API_KEY = "VJ1JG1P-82AMHPG-HMTRY1X-BFDF6XY";
+  let price = await Accelerator.findOne({ id: idAcelerador });
+  console.log("Preço do acelerador:", price);
 
   const payload = {
-    price_amount: Number(1),
+    price_amount: Number((await Accelerator.findOne({ id: idAcelerador })).price),
     price_currency: "usd",
     order_id: orderId,
     order_description: "Compra de Acelerador",
-    ipn_callback_url: "https://f298-149-90-32-71.ngrok-free.app/api/webhook",
-    success_url: "capacitor://localhost/accelerators.html",
-    cancel_url: "capacitor://localhost/accelerators.html"
+    ipn_callback_url: "https://6508-89-114-78-131.ngrok-free.app/api/webhook",
+    success_url: "https://nowpayments.io",
+    cancel_url: "https://nowpayments.io"
   };
+
+  console.log("Dados do pagamento:", payload);
 
   const response = await fetch("https://api.nowpayments.io/v1/invoice", {
     method: "POST",
@@ -171,7 +182,9 @@ export const getPayment = async (req, res) => {
   });
 
   const data = await response.json();
+  
   console.log("Resposta da API de pagamento:", data);
+
   res.json({ invoice_url: data.invoice_url });
 
 }
@@ -205,9 +218,9 @@ export const webHookPayment = async (req, res) => {
 
       // Cria o novo acelerador comprado
       const novoAcelerador = {
-        accId,
+        id: accId,
         price: parseFloat(price_amount),
-        purchaseDate: new Date()
+        purchaseAt: new Date()
       };
 
       // Adiciona ao array de aceleradores no dispositivo

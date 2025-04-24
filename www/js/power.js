@@ -12,7 +12,6 @@ window.scanDevices = async function () {
   `;
 
   try {
-
     // Obter UUID real do dispositivo ou usar por defeito
     let localUUID = "default-emulator-uuid"; // valor fallback
     try {
@@ -25,31 +24,34 @@ window.scanDevices = async function () {
       console.log('UUID usado:', localUUID);
     } catch (err) {
       console.warn('⚠️ Erro ao obter UUID, a usar UUID por defeito.', err);
-      // Continua com UUID por defeito
     }
 
-    // 2. Obtem info do utilizador e dispositivos
+    // Obter info do utilizador e dispositivos
     const token = localStorage.getItem("token");
     if (!token) throw new Error("Autenticação necessária");
 
-    const res = await fetch(`${API_BASE_URL}/api/get-user`, {
+    const userRes = await fetch(`${API_BASE_URL}/api/get-user`, {
       headers: {
         "Authorization": `Bearer ${token}`
       }
     });
 
-    if (!res.ok) throw new Error("Erro ao buscar utilizador");
-
-    const user = await res.json();
+    if (!userRes.ok) throw new Error("Erro ao buscar utilizador");
+    const user = await userRes.json();
     const devices = user.devices || [];
 
-    // 3. Limpa container
+    // Buscar informações dos aceleradores disponíveis
+    const accelRes = await fetch(`${API_BASE_URL}/api/get-accel-info`);
+    if (!accelRes.ok) throw new Error("Erro ao buscar aceleradores");
+    const accelerators = await accelRes.json();
+
+    // Limpa container
     container.innerHTML = `
       <h2><i class="fas fa-bolt"></i> Power Rank</h2>
       <div class="section-title">📱 Dispositivos ativos</div>
     `;
 
-    // 4. Renderiza cada dispositivo
+    // Renderiza cada dispositivo
     devices.forEach((device) => {
       const isCurrent = device.uuid === localUUID;
       const score = Math.min(Math.max(device.ranking || 0, 0), 100);
@@ -63,18 +65,49 @@ window.scanDevices = async function () {
       const perAccelerator = 33.33;
       const maxAccelerators = Math.floor(score / perAccelerator);
       const progressToNext = ((score % perAccelerator)).toFixed(1);
-      const activeAccelerators = device.activeAccelerators || 0;
-      const estimatedProfit = (activeAccelerators * 2).toFixed(2); 
+      
+      // Obter número real de aceleradores para este dispositivo
+      const deviceAccelerators = device.accelerators || [];
+      const activeAccelerators = deviceAccelerators.length;
+      
+      // Calcular ganhos estimados com base nos aceleradores reais
+      let estimatedProfit = 0;
+      deviceAccelerators.forEach(acc => {
+        // Encontrar o acelerador correspondente para obter dailyEarnings
+        const accelInfo = accelerators.find(a => a.id === acc.id);
+        if (accelInfo) {
+          estimatedProfit += accelInfo.dailyEarnings;
+        } else {
+          estimatedProfit += 2; // valor padrão se não encontrar
+        }
+      });
 
       const accLabels = [0, 1, 2, 3].map(i => {
         const status =
           i === activeAccelerators
             ? "active available"
-            : i <= maxAccelerators
-              ? "available"
-              : "locked";
+            : i < activeAccelerators 
+              ? "available" 
+              : i <= maxAccelerators
+                ? "available"
+                : "locked";
         return `<span class="${status}">${i}</span>`;
       }).join("");
+
+      // Construir lista de aceleradores ativos
+      let acceleratorsList = '';
+      if (activeAccelerators > 0) {
+        acceleratorsList = `<div class="accelerators-list">
+          <h4>Aceleradores Ativos:</h4>
+          <ul style="text-align: left; padding-left: 20px;">
+            ${deviceAccelerators.map(acc => {
+              const accelInfo = accelerators.find(a => a.id === acc.id);
+              const purchaseDate = new Date(acc.purchasedAt).toLocaleDateString();
+              return `<li>${accelInfo ? accelInfo.name : 'Acelerador'} - Adquirido em ${purchaseDate}</li>`;
+            }).join('')}
+          </ul>
+        </div>`;
+      }
 
       const deviceCard = `
         <div class="section device-section">
@@ -109,8 +142,9 @@ window.scanDevices = async function () {
 
           <hr class="divider" />
           <div class="tip centered">${activeAccelerators} acelerador(es) em uso</div>
+          ${acceleratorsList}
           <hr class="divider" />
-          <div class="tip centered">≈ €${estimatedProfit}/dia</div>
+          <div class="tip centered">≈ €${estimatedProfit.toFixed(2)}/dia</div>
         </div>
       `;
 
@@ -129,7 +163,7 @@ window.scanDevices = async function () {
     console.error("Erro ao carregar dispositivos:", e);
     document.querySelector(".power-container").innerHTML = `
       <h2><i class="fas fa-bolt"></i> Power Rank</h2>
-      <p style="color:red;">❌ Erro ao carregar os dispositivos.</p>
+      <p style="color:red;">❌ Erro ao carregar os dispositivos: ${e.message}</p>
     `;
   }
 };
