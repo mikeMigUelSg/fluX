@@ -1,59 +1,124 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Minhas Tasks</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="css/tasks.css">
-  <script src="js/bottom-bar.js" defer></script>
   <link rel="stylesheet" href="css/bottom-bar.css" />
+  <link rel="stylesheet" href="css/enhanced-style.css" />
+  
+  <!-- Fix height and overflow issues for tasks screen -->
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    
+    body {
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(#0c0c0c, #0f2e2a);
+      color: white;
+    }
+    
+    .app-container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      padding-bottom: 90px; /* Space for bottom bar */
+      box-sizing: border-box;
+    }
+    
+    .container {
+      flex: 1;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      padding-bottom: 100px; /* Extra padding at bottom */
+      width: 100%;
+      box-sizing: border-box;
+    }
+    
+    .task-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    
+    /* Enhance task cards */
+    .task-card {
+      background: linear-gradient(145deg, rgba(20, 20, 20, 0.3), rgba(78,78,78, 0.1));
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(5px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .task-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <h1><i class="fas fa-tasks"></i> As Minhas Tasks</h1>
-    </div>
-
-    <div class="balance">
-      Total Ganho: <strong id="balance">$0.00 USDT</strong>
-    </div>
-
-    <div class="task-list">
-      <div class="task-card">
-        <div class="task-info">
-          <h3>Classificar Imagens</h3>
-          <p>Status: <strong>Disponível</strong></p>
-        </div>
-        <div class="task-action">
-          <button onclick="location.href='task-classify.html'">Começar</button>
-        </div>
+  <div class="app-container">
+    <div class="container">
+      <div class="header">
+        <h1><i class="fas fa-tasks"></i> As Minhas Tasks</h1>
       </div>
 
-      <div class="task-card">
-        <div class="task-info">
-          <h3>Verificação Humana (reCAPTCHA)</h3>
-          <p>Status: <strong>Disponível</strong></p>
-        </div>
-        <div class="task-action">
-          <button onclick="location.href='recaptcha-task.html'">Começar</button>
-        </div>
+      <div class="balance">
+        Total Ganho: <strong id="balance">$0.00 USDT</strong>
       </div>
 
-      <div class="task-card">
-        <div class="task-info">
-          <h3>Reconhecimento de Emoções</h3>
-          <p>Status: <strong>Indisponível</strong></p>
+      <div class="task-list">
+        <div class="task-card">
+          <div class="task-info">
+            <h3>Classificar Imagens</h3>
+            <p>Status: <strong>Disponível</strong></p>
+          </div>
+          <div class="task-action">
+            <button onclick="location.href='task-classify.html'">Começar</button>
+          </div>
         </div>
-        <div class="task-action">
-          <button disabled>Indisponível</button>
+
+        <div class="task-card">
+          <div class="task-info">
+            <h3>Verificação Humana (reCAPTCHA)</h3>
+            <p>Status: <strong>Disponível</strong></p>
+          </div>
+          <div class="task-action">
+            <button onclick="location.href='recaptcha-task.html'">Começar</button>
+          </div>
+        </div>
+
+        <div class="task-card">
+          <div class="task-info">
+            <h3>Reconhecimento de Emoções</h3>
+            <p>Status: <strong>Indisponível</strong></p>
+          </div>
+          <div class="task-action">
+            <button disabled>Indisponível</button>
+          </div>
         </div>
       </div>
     </div>
+    
+    <!-- Placeholder for bottom bar -->
+    <div id="bottom-bar-placeholder"></div>
   </div>
 
-  <script src="tasks.html"></script>
-  <div id="bottom-bar-placeholder"></div>
+  <script src="js/tasks.js"></script>
+  <script type="module" src="js/bottom-bar.js"></script>
 </body>
 </html>
