@@ -3,65 +3,70 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Dashboard Mobile</title>
+  <title>fluX Dashboard</title>
 
   <!-- CSS principal -->
   <link rel="stylesheet" href="css/style.css" />
+  <!-- CSS melhorado -->
+  <link rel="stylesheet" href="css/enhanced-style.css" />
   <!-- CSS da barra inferior -->
   <link rel="stylesheet" href="css/bottom-bar.css" />
   <!-- Ícones Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
+  <!-- JS para o sistema de traduções -->
+  <script type="module" src="js/translations.js"></script>
   <!-- JS principal da página -->
-  <script src="js/main.js" defer></script>
+  <script type="module" src="js/main.js"></script>
   <!-- JS para carregar a barra inferior -->
-  <script src="js/bottom-bar.js" defer></script>
+  <script type="module" src="js/bottom-bar.js"></script>
 </head>
 
 <body>
   <div class="app-container">
-
+    <!-- Language selector will be injected by translations.js -->
+    
     <nav class="top-nav">
-      <div class="nav-button">
+      <div class="nav-button" onclick="window.location.href='tasks.html'">
         <div class="top-icon"><i class="fas fa-tasks"></i></div>
-        <span>Centro de Tarefas</span>
+        <span data-i18n="tasks">Centro de Tarefas</span>
       </div>
-      <div class="nav-button">
+      <div class="nav-button" onclick="alert('Coming soon!')">
         <div class="top-icon"><i class="fas fa-book"></i></div>
-        <span>Tutoriais</span>
+        <span data-i18n="tutorials">Tutoriais</span>
       </div>
-      <div class="nav-button">
+      <div class="nav-button" onclick="window.location.href='invitation.html'">
         <div class="top-icon"><i class="fas fa-link"></i></div>
-        <span>Convite</span>
+        <span data-i18n="invite">Convite</span>
       </div>
-      <div class="nav-button">
+      <div class="nav-button" onclick="alert('Coming soon!')">
         <div class="top-icon"><i class="fas fa-info-circle"></i></div>
-        <span>Sobre Nós</span>
+        <span data-i18n="about_us">Sobre Nós</span>
       </div>
     </nav>
 
     <section class="yield-card">
       <div class="yield-row">
         <div>
-          <p>Lucro Diário</p>
+          <p data-i18n="daily_profit">Lucro Diário</p>
           <strong>+0.00USDT</strong>
         </div>
         <div>
-          <p>Lucro Total</p>
+          <p data-i18n="total_profit">Lucro Total</p>
           <strong>+0.01USDT</strong>
         </div>
       </div>
       <div class="progress-bar">
-        <p>Progresso de treino de hoje</p>
+        <p data-i18n="training_progress">Progresso de treino de hoje</p>
         <div class="bar"><div class="fill" style="width: 0%;"></div></div>
       </div>
     </section>
 
     <section class="cards">
       <div class="card">
-        <p>Gerar Lucro</p>
+        <p data-i18n="generate_profit">Gerar Lucro</p>
         <strong>0.01 USDT</strong>
-        <button>Recolher</button>
+        <button class="btn" data-i18n="collect">Recolher</button>
       </div>
       <div class="card">
         <div class="gauge">
@@ -71,14 +76,14 @@
             <text x="18" y="20.35" class="gauge-text">0%</text>
           </svg>
         </div>
-        <div class="level-text">Nível 1</div>
+        <div class="level-text"><span data-i18n="level">Nível</span> 1</div>
       </div>
     </section>
 
     <section class="partners">
-      <h4>Parceiros</h4>
+      <h4 data-i18n="partners">Parceiros</h4>
       <div class="logos">
-        <span>facebook</span>
+        <span>Facebook</span>
         <span>Hugging Face</span>
         <span>Google</span>
         <span>OpenAI</span>
@@ -86,7 +91,7 @@
         <span>BioMap</span>
         <span>X AI</span>
         <span>NVIDIA</span>
-        <span>amazon</span>
+        <span>Amazon</span>
       </div>
     </section>
 
